@@ -31,6 +31,7 @@ export default class PortfolioForm extends Component {
     this.handleBannerDrop = this.handleBannerDrop.bind(this);
     this.handleLogoDrop = this.handleLogoDrop.bind(this);
     this.deleteImage = this.deleteImage.bind(this);
+    this.clearStateToBaseState = this.clearStateToBaseState.bind(this);
 
     this.thumbRef = React.createRef();
     this.bannerRef = React.createRef();
@@ -143,6 +144,23 @@ export default class PortfolioForm extends Component {
     return formData;
   }
 
+  clearStateToBaseState() {
+    this.setState({
+      name: "",
+      description: "",
+      category: "eCommerce",
+      position: "",
+      url: "",
+      thumb_image: "",
+      banner_image: "",
+      logo: "",
+      editMode: false,
+      apiUrl:
+        "https://alexanderbateman.devcamp.space/portfolio/portfolio_items",
+      apiAction: "post"
+    });
+  }
+
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -164,20 +182,8 @@ export default class PortfolioForm extends Component {
         else{
           this.props.handleNewFormSubmission(response.data.portfolio_item);
         }
-        
-        this.setState({
-          name: "",
-          description: "",
-          category: "eCommerce",
-          position: "",
-          url: "",
-          thumb_image: "",
-          banner_image: "",
-          logo: "",
-          editMode: false,
-          apiUrl: "https://erinnlebaron.devcamp.space/portfolio/portfolio_items",
-          apiAction: "post",
-        });
+
+        clearStateToBaseState();
 
         [this.thumbRef, this.bannerRef, this.logoRef].forEach(ref => {
           ref.current.dropzone.removeAllFiles();
@@ -192,7 +198,7 @@ export default class PortfolioForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit} className="portfolio-form-wrapper">
+      <form onSubmit={this.handleSubmit} onReset={this.clearStateToBaseState} className="portfolio-form-wrapper">
         <div className="two-column">
           <input
             type="text"
@@ -305,9 +311,12 @@ export default class PortfolioForm extends Component {
           )}
         </div>
 
-        <div>
+        <div className="btn-wrapper">
           <button className="btn" type="submit">
             Save
+          </button>
+          <button className="btn" type="reset">
+            Cancel
           </button>
         </div>
       </form>
