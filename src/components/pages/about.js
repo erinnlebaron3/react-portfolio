@@ -9,8 +9,9 @@ export default function() {
         className="left-column"
         style={{
           background: "url(" + profilePicture + ") no-repeat",
-          backgroundSize: "center",
-          backgroundPosition: "center"
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          
         }}
       />
       <div className="right-column">
