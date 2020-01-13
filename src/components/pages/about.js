@@ -11,7 +11,6 @@ export default function() {
           background: "url(" + profilePicture + ") no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          
         }}
       />
       <div className="right-column">
